@@ -3,5 +3,8 @@
   "version": "0.0.1",
   "main": "index.js",
   "author": "joe-re <joe.tialtngo@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@joe-re/node-sql-parser": "^0.0.1"
+  }
 }
