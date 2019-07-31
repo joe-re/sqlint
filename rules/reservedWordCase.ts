@@ -1,12 +1,26 @@
 import { Parser } from '@joe-re/node-sql-parser'
 
-export function reservedWordCase(sql: string) {
-  const ast = Parser.parse(sql)
-  if (ast.type === 'select' && ast.keyword.value !== 'SELECT') {
-    return {
-      message: 'reserved word must be upperword',
-      location: ast.keyword.location
+type KeywordNode = {
+  type: 'keyword',
+  value: string,
+  location: any
+}
+export const reservedWordCase = {
+  meta: {
+    name: 'reserved-word-case',
+    type: 'keyword',
+    options: { enum: ['upper', 'lower'] },
+    messages: {
+      upper: 'reserved word must be uppercase',
+      lower: 'reserved word must be lowercase'
+    },
+  },
+  create: (node: KeywordNode) => {
+    if (/[a-z]/.test(node.value)) {
+      return {
+        message: 'reserved word must be uppercase',
+        location: node.location
+      }
     }
   }
-  return null
 }
