@@ -1,10 +1,5 @@
-import { Parser } from '@joe-re/node-sql-parser'
+import { KeywordNode } from '@joe-re/node-sql-parser'
 
-type KeywordNode = {
-  type: 'keyword',
-  value: string,
-  location: any
-}
 export const reservedWordCase = {
   meta: {
     name: 'reserved-word-case',

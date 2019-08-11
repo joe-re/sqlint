@@ -1,5 +1,5 @@
 import { reservedWordCase } from './reservedWordCase'
-import { Parser } from '@joe-re/node-sql-parser'
+import { parse } from '@joe-re/node-sql-parser'
 
 type Rule = {
   meta: {
@@ -40,6 +40,6 @@ function walk(node: any, diagnostics: any[] = []) {
 export function execute(sql: string, config: any) {
   rules = []
   registerRule(reservedWordCase, config)
-  const ast = Parser.parse(sql)
+  const ast = parse(sql)
   return walk(ast)
 }
