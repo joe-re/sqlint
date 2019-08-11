@@ -1,7 +1,7 @@
 import { reservedWordCase } from './reservedWordCase'
 import { parse } from '@joe-re/node-sql-parser'
 
-type Rule = {
+export type Rule = {
   meta: {
     name: string,
     type: string
@@ -9,18 +9,27 @@ type Rule = {
   create: Function
 }
 
-let rules: Rule[] = []
+export type Config<T> = {
+  level: number,
+  options: T
+}
+
+let rules:{ rule: Rule, config: any }[] = []
 function registerRule(rule: Rule, config: any) {
   if (config.rules[rule.meta.name] && config.rules[rule.meta.name][0] >= 1) {
-    rules.push(rule)
+    const _config = {
+      level: config.rules[rule.meta.name][0],
+      options: config.rules[rule.meta.name].slice(1)
+    }
+    rules.push({ rule, config: _config })
   }
 }
 
 function apply(node: any) {
   let diagnostics: any[] = []
-  rules.forEach(rule => {
+  rules.forEach(({ rule, config }) => {
     if (node.type === rule.meta.type) {
-      diagnostics = diagnostics.concat(rule.create(node))
+      diagnostics = diagnostics.concat(rule.create(node, config))
     }
   })
   return diagnostics.filter(v => !!v)
