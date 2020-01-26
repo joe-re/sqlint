@@ -1,5 +1,5 @@
 import { KeywordNode } from '@joe-re/node-sql-parser'
-import { Rule, Config } from './index'
+import { Rule, Config, Context } from './index'
 
 type Options = [ 'upper' | 'lower' ]
 const META = {
@@ -14,17 +14,17 @@ const META = {
 
 export const reservedWordCase: Rule = {
   meta: META,
-  create: (node: KeywordNode, config: Config<Options> ) => {
-    if (config.options[0] === 'upper' && /[a-z]/.test(node.value)) {
+  create: (context: Context<KeywordNode, Config<Options>> ) => {
+    if (context.config.options[0] === 'upper' && /[a-z]/.test(context.node.value)) {
       return {
         message: META.messages.upper,
-        location: node.location
+        location: context.node.location
       }
     }
-    if (config.options[0] === 'lower' && /[A-Z]/.test(node.value)) {
+    if (context.config.options[0] === 'lower' && /[A-Z]/.test(context.node.value)) {
       return {
         message: META.messages.lower,
-        location: node.location
+        location: context.node.location
       }
     }
   }
