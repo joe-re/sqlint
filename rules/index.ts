@@ -3,6 +3,7 @@ import { spaceSurroundingOperators } from './spaceSurroundingOperators'
 import { linebreakAfterClauseKeyword } from './linebreakAfterClauseKeyword'
 import { columnNewLine } from './columnNewLine'
 import { alignColumnToTheFirst } from './alignColumnToTheFirst'
+import { whereClauseNewLine } from './whereClauseNewLine'
 import { parse, NodeRange } from '@joe-re/node-sql-parser'
 
 export type Rule = {
@@ -33,6 +34,7 @@ export function execute(sql: string, config: any) {
   registerRule(linebreakAfterClauseKeyword, config, sql)
   registerRule(columnNewLine, config, sql)
   registerRule(alignColumnToTheFirst, config, sql)
+  registerRule(whereClauseNewLine, config, sql)
   const ast = parse(sql)
   return walk(ast)
 }
