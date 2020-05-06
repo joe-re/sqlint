@@ -4,7 +4,7 @@ test('valid case', () => {
   const sql = `
     SELECT
       foo.a,
-      foo.b 
+      foo.b
     FROM
       foo
   `
@@ -15,7 +15,7 @@ test('valid case', () => {
 test("Columns must go on a new line", () => {
   const sql = `
     SELECT
-      foo.a, foo.b 
+      foo.a, foo.b
     FROM
       foo
   `;
@@ -26,7 +26,7 @@ test("Columns must go on a new line", () => {
     end: {
       column: 5,
       line: 4,
-      offset: 36
+      offset: 35
     },
     start: {
       column: 14,

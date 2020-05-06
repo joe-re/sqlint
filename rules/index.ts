@@ -2,6 +2,7 @@ import { reservedWordCase } from './reservedWordCase'
 import { spaceSurroundingOperators } from './spaceSurroundingOperators'
 import { linebreakAfterClauseKeyword } from './linebreakAfterClauseKeyword'
 import { columnNewLine } from './columnNewLine'
+import { alignColumnToTheFirst } from './alignColumnToTheFirst'
 import { parse, NodeRange } from '@joe-re/node-sql-parser'
 
 export type Rule = {
@@ -31,6 +32,7 @@ export function execute(sql: string, config: any) {
   registerRule(spaceSurroundingOperators, config, sql)
   registerRule(linebreakAfterClauseKeyword, config, sql)
   registerRule(columnNewLine, config, sql)
+  registerRule(alignColumnToTheFirst, config, sql)
   const ast = parse(sql)
   return walk(ast)
 }
