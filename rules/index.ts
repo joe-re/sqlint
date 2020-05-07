@@ -14,6 +14,12 @@ export type Rule = {
   create: Function
 }
 
+export enum Level {
+  Off = 0,
+  Warn = 1,
+  Error = 2
+}
+
 export type Config<T> = {
   level: number,
   options: T
@@ -40,7 +46,7 @@ export function execute(sql: string, config: any) {
 }
 
 function registerRule(rule: Rule, config: any, sql: string) {
-  if (config.rules[rule.meta.name] && config.rules[rule.meta.name][0] >= 1) {
+  if (config.rules[rule.meta.name] && config.rules[rule.meta.name][0] >= Level.Warn) {
     const _config = {
       level: config.rules[rule.meta.name][0],
       options: config.rules[rule.meta.name].slice(1)

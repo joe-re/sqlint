@@ -23,13 +23,11 @@ export const whereClauseNewLine: Rule = {
       return null
     }
 
-    if (context.config.level === 2) {
-      const invalidClause = findInvalidClause(context.node.where.expression)
-      if (invalidClause) {
-        return {
-          message: 'Multiple where clause must go on a new line.',
-          location: invalidClause.location
-        }
+    const invalidClause = findInvalidClause(context.node.where.expression)
+    if (invalidClause) {
+      return {
+        message: 'Multiple where clause must go on a new line.',
+        location: invalidClause.location
       }
     }
   }
