@@ -1,12 +1,12 @@
 import { execute } from '../../rules'
 
 test('valid case', () => {
-  const result = execute('SELECT * FROM foo', { rules: { 'reserved-word-case': [ 2, 'upper' ] } })
+  const result = execute('SELECT * FROM foo', { rules: { 'reserved-word-case': { level: 2, option: 'upper' } } })
   expect(result).toEqual([])
 })
 
 test('select keyword must be uppercase', () => {
-  const result = execute('select * FROM foo', { rules: { 'reserved-word-case': [ 2, 'upper' ] } })
+  const result = execute('select * FROM foo', { rules: { 'reserved-word-case': { level: 2, option: 'upper' } } })
   expect(result.length).toEqual(1)
   expect(result[0].message).toEqual('reserved word must be uppercase')
   expect(result[0].location.start).toEqual({line: 1, offset: 0,  column: 1 })
@@ -14,7 +14,7 @@ test('select keyword must be uppercase', () => {
 })
 
 test('select keyword must be lowercase', () => {
-  const result = execute('SELECT * from foo', { rules: { 'reserved-word-case': [ 2, 'lower' ] } })
+  const result = execute('SELECT * from foo', { rules: { 'reserved-word-case': { level: 2, option: 'lower' } } })
   expect(result.length).toEqual(1)
   expect(result[0].message).toEqual('reserved word must be lowercase')
   expect(result[0].location.start).toEqual({line: 1, offset: 0,  column: 1 })
@@ -22,7 +22,7 @@ test('select keyword must be lowercase', () => {
 })
 
 test('from keyword must be uppercase', () => {
-  const result = execute('SELECT * from foo', { rules: { 'reserved-word-case': [ 2, 'upper' ] } })
+  const result = execute('SELECT * from foo', { rules: { 'reserved-word-case': { level: 2, option: 'upper' } } })
   expect(result.length).toEqual(1)
   expect(result[0].message).toEqual('reserved word must be uppercase')
   expect(result[0].location.start).toEqual({line: 1, offset: 9,  column: 10 })
@@ -30,7 +30,7 @@ test('from keyword must be uppercase', () => {
 })
 
 test('where keyword must be uppercase', () => {
-  const result = execute('SELECT * FROM foo where id = 1', { rules: { 'reserved-word-case': [ 2, 'upper' ] } })
+  const result = execute('SELECT * FROM foo where id = 1', { rules: { 'reserved-word-case': { level: 2, option: 'upper' } } })
   expect(result.length).toEqual(1)
   expect(result[0].message).toEqual('reserved word must be uppercase')
   expect(result[0].location.start).toEqual({line: 1, offset: 18,  column: 19 })

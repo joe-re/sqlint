@@ -1,7 +1,8 @@
 import { BinaryExpressionNode } from '@joe-re/node-sql-parser'
-import { Rule, Config, Context } from './index'
+import { Rule, RuleConfig, Context } from './index'
 
-type Options = [ 'always' | 'never' ]
+type Option = 'always' | 'never'
+const DefaultOption = 'always'
 const META = {
   name: 'space-surrounding-operators',
   type: 'binary_expr',
@@ -14,11 +15,12 @@ const META = {
 
 export const spaceSurroundingOperators: Rule = {
   meta: META,
-  create: (context: Context<BinaryExpressionNode, Config<Options>> ) => {
+  create: (context: Context<BinaryExpressionNode, RuleConfig<Option>> ) => {
     if (!['+', '-', '*', '/', '>', '>=', '<', '<=', '!=', '<>', '='].includes(context.node.operator)) {
       return
     }
-    if (context.config.options[0] === 'always') {
+    const option = context.config.option || DefaultOption
+    if (option === 'always') {
       const regexp = new RegExp(` ${context.node.operator} $`)
       const part = context.getSQL(context.node.left.location, { after: context.node.operator.length + 2})
       const result = regexp.exec(part)
@@ -38,7 +40,7 @@ export const spaceSurroundingOperators: Rule = {
           location: { start, end }
         }
       }
-    } else if (context.config.options[0] === 'never') {
+    } else if (option === 'never') {
       const regexp = new RegExp(`[^\s]${context.node.operator}[^\s]$`)
       const part = context.getSQL(context.node.left.location, { after: context.node.operator.length + 1})
       const result = regexp.exec(part)

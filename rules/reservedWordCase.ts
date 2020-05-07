@@ -1,11 +1,11 @@
 import { KeywordNode } from '@joe-re/node-sql-parser'
-import { Rule, Config, Context } from './index'
+import { Rule, RuleConfig, Context } from './index'
 
-type Options = [ 'upper' | 'lower' ]
+type Option = 'upper' | 'lower'
+const DefaultOption = 'upper'
 const META = {
   name: 'reserved-word-case',
   type: 'keyword',
-  options: [ ['upper', 'lower'] ],
   messages: {
     upper: 'reserved word must be uppercase',
     lower: 'reserved word must be lowercase'
@@ -14,14 +14,15 @@ const META = {
 
 export const reservedWordCase: Rule = {
   meta: META,
-  create: (context: Context<KeywordNode, Config<Options>> ) => {
-    if (context.config.options[0] === 'upper' && /[a-z]/.test(context.node.value)) {
+  create: (context: Context<KeywordNode, RuleConfig<Option>> ) => {
+    const option = context.config.option || DefaultOption
+    if (context.config.option === 'upper' && /[a-z]/.test(context.node.value)) {
       return {
         message: META.messages.upper,
         location: context.node.location
       }
     }
-    if (context.config.options[0] === 'lower' && /[A-Z]/.test(context.node.value)) {
+    if (context.config.option === 'lower' && /[A-Z]/.test(context.node.value)) {
       return {
         message: META.messages.lower,
         location: context.node.location

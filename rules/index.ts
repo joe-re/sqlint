@@ -20,20 +20,24 @@ export enum Level {
   Error = 2
 }
 
-export type Config<T> = {
-  level: number,
-  options: T
+export type Config = {
+  rules: { [key: string]: RuleConfig<any> }
+}
+
+export type RuleConfig<T = void> = {
+  level: Level,
+  option?: T
 }
 
 export type Context<NODE = any, CONFIG = any> = {
-  getSQL(range?: NodeRange, options?: { before?: number, after?: number }): string
+  getSQL(range?: NodeRange, option?: { before?: number, after?: number }): string
   node: NODE
   config: CONFIG
 }
 
 let rules:{ rule: Rule, config: any, sql: string }[] = []
 
-export function execute(sql: string, config: any) {
+export function execute(sql: string, config: Config) {
   rules = []
   registerRule(reservedWordCase, config, sql)
   registerRule(spaceSurroundingOperators, config, sql)
@@ -45,11 +49,11 @@ export function execute(sql: string, config: any) {
   return walk(ast)
 }
 
-function registerRule(rule: Rule, config: any, sql: string) {
-  if (config.rules[rule.meta.name] && config.rules[rule.meta.name][0] >= Level.Warn) {
+function registerRule(rule: Rule, config: Config, sql: string) {
+  if (config.rules[rule.meta.name] && config.rules[rule.meta.name].level >= Level.Warn) {
     const _config = {
-      level: config.rules[rule.meta.name][0],
-      options: config.rules[rule.meta.name].slice(1)
+      level: config.rules[rule.meta.name].level,
+      option: config.rules[rule.meta.name].option
     }
     rules.push({ rule, config: _config, sql })
   }

@@ -9,7 +9,7 @@ WHERE foo.a > 1
   AND foo.c=true
    OR foo.d <> false
 `
-  const result = execute(sql, { rules: { 'space-surrounding-operators': [ 2, 'always' ] } })
+  const result = execute(sql, { rules: { 'space-surrounding-operators': { level: 2, option: 'always' } } })
   expect(result.length).toEqual(2)
 
   expect(result[0].message).toEqual('space surrounding always')
@@ -30,7 +30,7 @@ WHERE foo.a > 1
   AND foo.c=true
    OR foo.d <> false
 `
-  const result = execute(sql, { rules: { 'space-surrounding-operators': [ 2, 'never' ] } })
+  const result = execute(sql, { rules: { 'space-surrounding-operators': { level: 2, option: 'never' } } })
   expect(result.length).toEqual(2)
 
   expect(result[0].message).toEqual('space surrounding never')

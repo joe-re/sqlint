@@ -8,7 +8,7 @@ test('valid case', () => {
       foo.a = 'a'
       AND foo.b = 'b'
   `
-  const result = execute(sql, { rules: { 'where-clause-new-line': [2] } })
+  const result = execute(sql, { rules: { 'where-clause-new-line': { level: 2 } } })
   expect(result).toEqual([])
 })
 
@@ -20,7 +20,7 @@ test('Multiple clauses must go on a new line', () => {
     WHERE
       foo.a = 'a' AND foo.b = 'b'
   `
-  const result = execute(sql, { rules: { 'where-clause-new-line': [2] } })
+  const result = execute(sql, { rules: { 'where-clause-new-line': { level: 2 } } })
   expect(result.length).toEqual(1)
   expect(result[0].message).toEqual('Multiple where clause must go on a new line.')
   expect(result[0].location).toEqual({

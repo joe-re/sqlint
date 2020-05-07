@@ -8,7 +8,7 @@ test('valid case', () => {
     FROM
       foo
   `
-  const result = execute(sql, { rules: { 'align-column-to-the-first': [2] } })
+  const result = execute(sql, { rules: { 'align-column-to-the-first': { level: 2 } } })
   expect(result).toEqual([])
 })
 
@@ -21,7 +21,7 @@ test('Columns must align to the first column', () => {
     FROM
       foo
   `
-  const result = execute(sql, { rules: { 'align-column-to-the-first': [2] } })
+  const result = execute(sql, { rules: { 'align-column-to-the-first': { level: 2 } } })
   expect(result.length).toEqual(1)
   expect(result[0].message).toEqual("Columns must align to the first column.")
   expect(result[0].location).toEqual({

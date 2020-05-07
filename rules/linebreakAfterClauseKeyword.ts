@@ -1,5 +1,5 @@
 import { KeywordNode } from '@joe-re/node-sql-parser'
-import { Rule, Config, Context } from './index'
+import { Rule, RuleConfig, Context } from './index'
 
 const META = {
   name: 'linebreak-after-clause-keyword',
@@ -8,7 +8,7 @@ const META = {
 
 export const linebreakAfterClauseKeyword: Rule = {
   meta: META,
-  create: (context: Context<KeywordNode, Config<{}>> ) => {
+  create: (context: Context<KeywordNode, RuleConfig<{}>> ) => {
     const regexp = new RegExp(/\n|\r\n|\r$/)
     const part = context.getSQL(context.node.location, { after: 1})
     const result = regexp.exec(part)

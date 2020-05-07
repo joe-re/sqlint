@@ -1,5 +1,5 @@
-import { KeywordNode, SelectStatement } from '@joe-re/node-sql-parser'
-import { Rule, Config, Context } from './index'
+import { SelectStatement } from '@joe-re/node-sql-parser'
+import { Rule, RuleConfig, Context } from './index'
 
 type Options = { allowMultipleColumnsPerLine: boolean }
 const META = {
@@ -10,7 +10,7 @@ const META = {
 
 export const columnNewLine: Rule = {
   meta: META,
-  create: (context: Context<SelectStatement, Config<Options>> ) => {
+  create: (context: Context<SelectStatement, RuleConfig<Options>> ) => {
     if (Array.isArray(context.node.columns)) {
       let previousLine = 0
       const invalidColumn = context.node.columns.find(v => {
