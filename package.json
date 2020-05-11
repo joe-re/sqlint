@@ -9,12 +9,14 @@
   },
   "dependencies": {
     "@joe-re/node-sql-parser": "^0.0.1",
+    "ajv": "^6.12.2",
     "jest": "^24.8.0",
     "js-yaml": "^3.13.1",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.2"
   },
   "devDependencies": {
+    "@types/ajv": "^1.0.0",
     "@types/jest": "^24.0.15",
     "@types/js-yaml": "^3.12.3",
     "@types/node": "^13.13.5",
