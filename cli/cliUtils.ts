@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 
-function fileExists(path: string) {
+export function fileExists(path: string) {
   try {
     return fs.statSync(path).isFile()
   } catch (error) {
@@ -46,4 +46,8 @@ export function getFileList(path: string): string[] {
   }).flat().filter((v: string) => {
     return v.match(/.sql$/)
   })
+}
+
+export function readFile(filePath) {
+  return fs.readFileSync(filePath, "utf8").replace(/^\ufeff/u, "");
 }
