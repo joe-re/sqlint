@@ -10,11 +10,13 @@
   "dependencies": {
     "@joe-re/node-sql-parser": "^0.0.1",
     "jest": "^24.8.0",
+    "js-yaml": "^3.13.1",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.2"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
+    "@types/js-yaml": "^3.12.3",
     "@types/node": "^13.13.5",
     "ts-jest": "^24.0.2"
   },
