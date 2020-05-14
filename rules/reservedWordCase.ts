@@ -16,13 +16,13 @@ export const reservedWordCase: Rule = {
   meta: META,
   create: (context: Context<KeywordNode, RuleConfig<Option>> ) => {
     const option = context.config.option || DefaultOption
-    if (context.config.option === 'upper' && /[a-z]/.test(context.node.value)) {
+    if (option === 'upper' && /[a-z]/.test(context.node.value)) {
       return {
         message: META.messages.upper,
         location: context.node.location
       }
     }
-    if (context.config.option === 'lower' && /[A-Z]/.test(context.node.value)) {
+    if (option === 'lower' && /[A-Z]/.test(context.node.value)) {
       return {
         message: META.messages.lower,
         location: context.node.location

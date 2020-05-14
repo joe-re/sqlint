@@ -1,4 +1,4 @@
-import { Config } from '../rules'
+import { Config, ErrorLevel } from '../rules'
 import { fileExists, readFile } from './cliUtils'
 import * as yaml from 'js-yaml'
 import * as Ajv from 'ajv'
@@ -15,7 +15,14 @@ const configFiles = [
 ]
 
 const defaultConfig: Config = {
-  rules: {}
+  rules: {
+    'align-column-to-the-first': { level: ErrorLevel.Error },
+    'column-new-line': { level: ErrorLevel.Error },
+    'linebreak-after-clause-keyword': { level: ErrorLevel.Error },
+    'reserved-word-case': { level: ErrorLevel.Error, option: 'upper' },
+    'space-surrounding-operators': { level: ErrorLevel.Error },
+    'where-clause-new-line': { level: ErrorLevel.Error }
+  }
 }
 
 function formatErrors(errors: Ajv.ErrorObject[]) {
